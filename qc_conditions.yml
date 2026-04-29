@@ -51,3 +51,10 @@ checkm2:
   contamination:
     warn: 5            # >  5 % → WARN
     fail: 10           # > 10 % → FAIL
+
+kraken2:
+
+  # % of reads classified (unclassified reads may indicate contamination or novel organism)
+  classified_pct:
+    warn: 70           # < 70 % → WARN
+    fail: 50           # < 50 % → FAIL
