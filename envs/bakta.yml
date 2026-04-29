@@ -1,0 +1,11 @@
+name: bakta
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.10
+  - bakta=1.12.0
+  # Bakta pulls its own: pyrodigal, pyhmmer, diamond, blast, trnascan-se,
+  # aragorn, infernal, piler-cr, amrfinderplus
+  # Keep isolated from prokka to avoid Perl/Python dep conflicts

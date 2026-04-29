@@ -1,0 +1,73 @@
+name: "📋 Historia de Usuario"
+description: "Registrar o actualizar una historia de usuario del backlog"
+title: "[HU-XX] Título corto de la historia"
+labels: ["user-story"]
+body:
+  - type: dropdown
+    id: release
+    attributes:
+      label: Release
+      options: ["R1 — Core Assembly", "R2 — Calidad Biológica", "R3 — Tipificación y AMR", "R4 — Anotación y CI/CD"]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: epic
+    attributes:
+      label: Épica
+      options:
+        - Entrada y Configuración
+        - Control de Calidad de Lecturas
+        - Estimación de Tamaño Genómico
+        - Ensamblaje
+        - QC de Ensamblaje
+        - Detección de Contaminación
+        - Completitud Genómica
+        - Resumen y Reporte
+        - Infraestructura
+        - Tipificación Molecular
+        - Resistencia Antimicrobiana
+        - Análisis de Plásmidos
+        - Anotación Genómica
+        - Testing y CI/CD
+        - Lectura Larga
+    validations:
+      required: true
+
+  - type: textarea
+    id: story
+    attributes:
+      label: Historia
+      description: "Formato: Como [rol], quiero [capacidad], para que [beneficio]"
+      placeholder: |
+        **Como** bioinformático,
+        **quiero** ...,
+        **para que** ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Criterios de Aceptación
+      description: Lista de condiciones que deben cumplirse para considerar la HU implementada
+      placeholder: |
+        - [ ] Criterio 1
+        - [ ] Criterio 2
+        - [ ] Criterio 3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridad
+      options: ["Alta", "Media", "Baja"]
+    validations:
+      required: true
+
+  - type: input
+    id: points
+    attributes:
+      label: Story Points (Fibonacci)
+      placeholder: "1 / 2 / 3 / 5 / 8 / 13"

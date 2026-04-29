@@ -1,0 +1,53 @@
+# qc_conditions.yml
+# ─────────────────────────────────────────────────────────────────────────────
+# Thresholds for prokaryotic genome assemblies.
+# Adjust per organism / project.
+# ─────────────────────────────────────────────────────────────────────────────
+
+assembly:
+
+  # Scaffold N50 in bp
+  N50:
+    warn: 20000        # < 20 kb  → WARN
+    fail: 5000         # <  5 kb  → FAIL
+
+  # Total assembly span in bp (catches contamination or very small assemblies)
+  total_length:
+    warn_min: 1500000  # < 1.5 Mb → WARN (likely incomplete)
+    warn_max: 9000000  # > 9 Mb   → WARN (possible contamination)
+    fail_min:  500000  # < 0.5 Mb → FAIL
+    fail_max: 15000000 # > 15 Mb  → FAIL
+
+  # Number of contigs after minimum-length filter
+  num_contigs:
+    warn: 500          # > 500 → WARN (fragmented)
+    fail: 1000         # > 1000 → FAIL
+
+  # Largest single contig
+  largest_contig:
+    warn: 50000        # < 50 kb → WARN
+    fail: 10000        # < 10 kb → FAIL
+
+reads:
+
+  # Total sequenced bases after trimming (bp)
+  total_bases_trimmed:
+    warn: 100000000    # < 100 Mb → WARN (low coverage)
+    fail:  50000000    # <  50 Mb → FAIL
+
+  # % bases ≥ Q30 after trimming
+  q30_rate:
+    warn: 0.80         # < 80 % → WARN
+    fail: 0.70         # < 70 % → FAIL
+
+checkm2:
+
+  # Genome completeness (%)
+  completeness:
+    warn: 90           # < 90 % → WARN
+    fail: 80           # < 80 % → FAIL
+
+  # Genome contamination (%)
+  contamination:
+    warn: 5            # >  5 % → WARN
+    fail: 10           # > 10 % → FAIL

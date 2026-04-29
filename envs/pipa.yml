@@ -1,0 +1,28 @@
+name: pipa
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.10
+  # Read QC
+  - fastqc=0.12.1
+  - multiqc=1.21
+  # Trimming
+  - fastp=0.23.4
+  # Genome size estimation
+  - mash=2.3
+  # Downsampling
+  - rasusa=2.0.0
+  # Contamination check
+  - prokka=1.14.6
+  - kraken2=2.1.3
+  - bracken=2.9          # optional: abundance re-estimation desde report de Kraken2
+  # Assembly
+  - spades=4.0.0
+  # Assembly QC
+  - quast=5.2.0
+  # Utilities
+  - biopython=1.83
+  - pyyaml=6.0
+  - pigz

@@ -1,0 +1,10 @@
+name: checkm2
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.10
+  - checkm2=1.0.2
+  # CheckM2 pulls its own diamond, numpy, scikit-learn, tensorflow-cpu, etc.
+  # Keep this env isolated to avoid dependency conflicts with SPAdes/fastp

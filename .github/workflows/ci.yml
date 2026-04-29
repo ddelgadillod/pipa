@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+
+  # ── 1. Nextflow lint ────────────────────────────────────────────────────────
+  lint:
+    name: Nextflow lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java (required by Nextflow)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Install Nextflow
+        run: |
+          curl -s https://get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+          nextflow -version
+
+      - name: Lint pipeline
+        run: nextflow lint main.nf
+
+  # ── 2. Python lint (qc_summary.py) ─────────────────────────────────────────
+  python-lint:
+    name: Python lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install linters
+        run: pip install flake8 pyyaml
+
+      - name: Flake8
+        run: flake8 bin/qc_summary.py --max-line-length=120
+
+  # ── 3. Dry-run (syntax check, no actual jobs) ───────────────────────────────
+  dry-run:
+    name: Pipeline dry-run
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Install Nextflow
+        run: |
+          curl -s https://get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+
+      - name: Run pipeline dry-run (stub mode)
+        # -stub skips process execution but validates workflow logic
+        run: |
+          nextflow run main.nf \
+            --input_dir   test_input \
+            --output_dir  test_output \
+            --fastq_pattern "*{_R,_}{1,2}*.fastq.gz" \
+            --run_confindr false \
+            --run_checkm2  false \
+            -profile local \
+            -stub \
+            -ansi-log false

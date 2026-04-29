@@ -1,0 +1,54 @@
+name: "🐛 Bug Report"
+description: "Reportar un error en el pipeline"
+title: "[BUG] Descripción corta"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción del error
+      placeholder: Qué pasó y qué se esperaba que pasara
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Comando ejecutado
+      render: bash
+      placeholder: "nextflow run main.nf --input_dir ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Mensaje de error
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: nf_version
+    attributes:
+      label: Versión de Nextflow
+      placeholder: "nextflow -version"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Perfil usado
+      options: ["slurm", "local", "test"]
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Entorno
+      placeholder: |
+        - OS: (ej. Rocky Linux 8)
+        - SLURM version:
+        - Mamba version:
